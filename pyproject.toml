@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "zalando-cli-bundle"
+version = "22.4.0"
+description = "CLI bundle for Zalando developers"
+authors = ["Henning Jacobs <henning@zalando.de>"]
+classifiers = [
+    "Framework :: Pytest",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+repository = "https://github.bus.zalan.do/developer-productivity/zalando-cli-bundle"
+
+
+[tool.poetry.scripts]
+zalando-cli-bundle = 'zalando_cli_bundle:cli.main'
+
+[tool.poetry.dependencies]
+python = "^3.8"
+stups-cli-support = "^1.1.22"
+stups-zign = "^1.2"
+stups-pierone = "^1.1.53"
+stups-kio = "^0.1.25"
+zalando-aws-cli = "^1.2.7"
+zalando-kubectl = "^1"
+click = "^8"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.2.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

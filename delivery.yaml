@@ -1,0 +1,30 @@
+version: "2017-09-20"
+
+pipeline:
+  - id: "build"
+    type: script
+    vm_config:
+      type: linux
+      image: cdp-runtime/python-3.8
+    commands:
+
+      - desc: "install-dependencies"
+        cmd: |
+          poetry install && poetry run poetry debug info
+      - desc: "lint"
+        cmd: |
+          make lint
+      - desc: Publish package
+        cmd: |
+          make version
+          VERSION=$(poetry version -s)
+          if [ -z "$CDP_PULL_REQUEST_NUMBER" ]; then
+            TAG="release/$VERSION"
+            if ! git ls-remote --exit-code --tags origin "$TAG"; then
+              make release
+              git gh-tag -m "Release $VERSION" "$TAG"
+            fi
+          else
+            echo "Skipping publishing builder in the PR branch"
+            echo "Version after merge would be: $VERSION"
+          fi
